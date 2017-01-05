@@ -24,7 +24,7 @@
 	<form>
 		<fieldset>
 			<legend>Rest return:</legend>
-			<input id='response'></input>
+			<span id='response'></span>
 		</fieldset>
 	</form>
 
@@ -33,11 +33,12 @@
 		var $button = $("form button");
 		var $name_input = $("#name");
 		var $parameters_input = $("#parameters");
-		var $response_input = $("#response");
+		var $response = $("#response");
 
 		$button.on("click", function(e) {
 
-			e.preventDefault();
+
+			e.preventDefault();  
 
 			var $input_name = $("#name");
 			var s_name = $input_name.val();
@@ -54,11 +55,11 @@
 					var j_response = oDataReceived;
 					console.log("Response: "+ JSON.stringify(j_response));
 
-					$response_input.defaultValue = j_response;
+					$response.text(JSON.stringify(j_response));
 
 				},
 				error: function(error){
-					$response_input.defaultValue = error;
+					$response.text(error);
 					console.warn("Error: "+ error )					;
 				}
 
