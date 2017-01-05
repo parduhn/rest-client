@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Docker API poc</title>
+</head>
+<body>
+
+	<form>
+		<fieldset>
+			<legend>Name:</legend>
+			<input id="name" value="" placeholder="Write the path name path...">
+			<button>Submit!</button>
+		</fieldset>
+	</form>
+
+	<form>
+		<fieldset>
+			<legend>Add parameters</legend>
+			<input id="parameters" value="" placeholder="Write possible parameters... separated by &">
+		</fieldset>
+	</form>
+
+	<form>
+		<fieldset>
+			<legend>Rest return:</legend>
+			<input id='response'></input>
+		</fieldset>
+	</form>
+
+	<script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+	<script>
+		var $button = $("form button");
+		var $name_input = $("#name");
+		var $parameters_input = $("#parameters");
+		var $response_input = $("#response");
+
+		$button.on("click", function(e) {
+
+			e.preventDefault();
+
+			var $input_name = $("#name");
+			var s_name = $input_name.val();
+			var $input_parameters = $("#parameters");
+			var s_parameters = $input_parameters.val();
+
+			var s_get_url = "http://localhost:5001/echo/"+s_name+"?" + s_parameters;
+
+			$.ajax({
+				url: s_get_url,
+				dataType: "json",
+				success: function( oDataReceived ) {
+
+					var j_response = oDataReceived;
+					console.log("Response: "+ JSON.stringify(j_response));
+
+					$response_input.defaultValue = j_response;
+
+				},
+				error: function(error){
+					$response_input.defaultValue = error;
+					console.warn("Error: "+ error )					;
+				}
+
+			})
+		})
+	</script>
+</body>
+</html>
