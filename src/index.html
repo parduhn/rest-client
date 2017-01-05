@@ -71,7 +71,7 @@
 
 				},
 				error: function(error){
-					$response.text(error);
+					$response.text(JSON.stringify(error));
 					console.warn("Error: "+ JSON.stringify(error )				)	;
 				}
 
