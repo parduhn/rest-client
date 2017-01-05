@@ -8,6 +8,14 @@
 
 	<form>
 		<fieldset>
+			<legend>Url:</legend>
+			<input id="url" value="localhost:5001">
+		</fieldset>
+	</form>
+
+
+	<form>
+		<fieldset>
 			<legend>Name:</legend>
 			<input id="name" value="" placeholder="Write the path name path...">
 			<button>Submit!</button>
@@ -29,8 +37,11 @@
 	</form>
 
 	<script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+
 	<script>
+
 		var $button = $("form button");
+		var $url = $("#url");
 		var $name_input = $("#name");
 		var $parameters_input = $("#parameters");
 		var $response = $("#response");
@@ -45,7 +56,8 @@
 			var $input_parameters = $("#parameters");
 			var s_parameters = $input_parameters.val();
 
-			var s_get_url = "http://localhost:5001/echo/"+s_name+"?" + s_parameters;
+			var s_get_url = "http://"+$url.val()+"/echo/"+s_name+"?" + s_parameters;
+			console.log("Url: "+ s_get_url);
 
 			$.ajax({
 				url: s_get_url,
@@ -60,7 +72,7 @@
 				},
 				error: function(error){
 					$response.text(error);
-					console.warn("Error: "+ error )					;
+					console.warn("Error: "+ JSON.stringify(error )				)	;
 				}
 
 			})
